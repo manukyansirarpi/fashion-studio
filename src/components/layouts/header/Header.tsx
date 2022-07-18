@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import classes from './Header.module.css';
-import ShoppingCart from "../../ShoppingCart/ShoppingCart";
+import ShoppingCartButton from "../../ShoppingCart/ShoppingCartButton";
 import { NavLink } from "react-router-dom";
 import Button from "../../ui/button/Button";
 
@@ -24,7 +24,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
       }
       {IsLoggedIn &&
         <div className={classes.rightContCont}>
-          <ShoppingCart/>
+          <ShoppingCartButton/>
 	        <Button className={classes.button}>Logout</Button>
         </div>
       }
