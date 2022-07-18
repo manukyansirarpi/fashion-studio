@@ -3,7 +3,7 @@ import React, {ReactElement} from "react";
 
 interface IButtonProps {
   className?: string;
-  children?: string | ReactElement
+  children?: React.ReactNode
 }
 
 const Button: React.FC<IButtonProps> = (props) => {

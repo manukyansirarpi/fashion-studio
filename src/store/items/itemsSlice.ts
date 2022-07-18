@@ -1,23 +1,24 @@
 import {createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import { fetchItemsData } from "./itemsApi";
-import { RootState } from "./store";
+import { RootState } from "../store";
 
-export interface Item {
+export interface ItemI {
   id: string;
   name: string;
   description: string;
   price: number
+  img?: string
 }
 
 export interface ItemsState {
-  items: Item[],
+  data: ItemI[],
   status: 'idle' | 'loading' | 'failed';
 }
 
-const initialState: ItemsState = {
-  items: [],
+const initialState = {
+  data: [],
   status: 'idle',
-};
+} as ItemsState;
 
 export const fetchItemsAsync = createAsyncThunk('items/getItems', async () => {
   return await fetchItemsData();
@@ -34,26 +35,26 @@ export const itemsSlice = createSlice({
   reducers: { },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchItemsAsync.pending, (state) => {
+      .addCase(fetchItemsAsync.pending, (state, action) => {
         state.status = 'loading';
       })
       .addCase(fetchItemsAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         for (const key in action.payload) {
-          const { name, description, price} = action.payload[key];
-          state.items.push({'id': key, name, description, price});
+          const { name, description, price, img} = action.payload[key];
+          state.data.push({'id': key, name, description, price, img});
         }
       })
-      .addCase(fetchItemsAsync.rejected, (state) => {
+      .addCase(fetchItemsAsync.rejected, (state, action) => {
         state.status = 'failed';
       })
-      .addCase(AddItemsAsync.pending, (state) => {
+      .addCase(AddItemsAsync.pending, (state, action) => {
 
       })
       .addCase(AddItemsAsync.fulfilled, (state, action) => {
 
       })
-      .addCase(AddItemsAsync.rejected, (state) => {
+      .addCase(AddItemsAsync.rejected, (state, action) => {
 
       });
   },

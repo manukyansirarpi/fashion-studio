@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import classes from "./ItemsList.module.css";
 
 import { useAppSelector, useAppDispatch } from '../../../hooks/hooks';
-import { fetchItemsAsync, items } from "../../../store/itemsSlice";
+import { fetchItemsAsync, items } from "../../../store/items/itemsSlice";
 import ItemDetails from "../itemDetails/ItemDetails";
 
 interface IItemsListProps {
@@ -11,18 +11,21 @@ interface IItemsListProps {
 
 const ItemsList : React.FC<IItemsListProps> = (props) => {
 
-  const itemsData = useAppSelector(items);
+  const itemsData = useAppSelector(items).data;
   const dispatch = useAppDispatch();
 
   useEffect(()=> {
     dispatch(fetchItemsAsync())
   },[]);
 
-  console.log(itemsData)
   return (
-    <main className={classes.itemDetails}>
+    <main>
+      <section>
+          <ul className={classes.itemsList}>
+            {itemsData.map(item => <ItemDetails {...item} key={item.id}></ItemDetails>)}
+          </ul>
+      </section>
       <ul>
-        <ItemDetails></ItemDetails>
       </ul>
     </main>
   );

@@ -1,15 +1,21 @@
 import React from "react";
 import classes from "./ItemDetails.module.css";
-import Button from "../../ui/button/Button";
-import Input from "../../ui/input/Input";
+import { ItemI } from "../../../store/items/itemsSlice";
 
-interface IItemDetailsProps {
-}
 
-const ItemDetails : React.FC<IItemDetailsProps> = (props) => {
+const ItemDetails : React.FC<ItemI> = (props) => {
+  const {name, description, price, img } = props;
 
   return (
-      <div className={classes.itemDetails}>
+      <div>
+        <img src={img}/>
+        <div className={classes.info}>
+          <div>
+            <div className={classes.title}>{name}</div>
+            <div className={classes.description}>{description}</div>
+          </div>
+          <div className={classes.price}>${price}</div>
+        </div>
       </div>
   );
 
