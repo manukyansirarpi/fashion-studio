@@ -1,16 +1,16 @@
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
-import { data, fetchCartAsynch } from "../../store/cart/cartSlice"
+import { cart, fetchCartAsynch } from "../../store/cart/cartSlice"
 
 import React, {Fragment, MouseEventHandler, useEffect, useState} from "react";
 
 import ShoppingCart from "./ShoppingCart"
 import ShoppingCartIcon from "./ShoppingCartIcon";
-import classes from "./ShoppingCart.module.css";
+import classes from "./ShoppingCartButton.module.css";
 import Button from "../ui/button/Button";
 
 const ShoppingCartButton: React.FC = () => {
 
-  const cartData = useAppSelector(data).data;
+  const cartData = useAppSelector(cart).data;
   const dispatch = useAppDispatch();
 
   const [showShoppingCart, setShowShoppingCart] = useState(false);

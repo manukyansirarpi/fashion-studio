@@ -1,10 +1,21 @@
 import React from "react";
 import classes from "./ItemDetails.module.css";
 import { ItemI } from "../../../store/items/itemsSlice";
+import {addToCartAction} from "../../../store/cart/cartSlice";
+import { useAppDispatch } from '../../../hooks/hooks';
 
 
 const ItemDetails : React.FC<ItemI> = (props) => {
-  const {name, description, price, img } = props;
+
+  const dispatch = useAppDispatch();
+  const {name, description, price, img , id } = props;
+
+  const addToCart = (e: React.MouseEvent<HTMLElement> ) => {
+    const id = e.currentTarget.dataset.id;
+    if (id) {
+      dispatch(addToCartAction(id));
+    }
+  }
 
   return (
       <div>
@@ -16,6 +27,7 @@ const ItemDetails : React.FC<ItemI> = (props) => {
           </div>
           <div className={classes.price}>${price}</div>
         </div>
+        <button className={classes.addToCartBtn} onClick={addToCart} data-id={id}>Add to cart</button>
       </div>
   );
 

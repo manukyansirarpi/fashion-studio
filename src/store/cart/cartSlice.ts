@@ -25,7 +25,29 @@ export const fetchCartAsynch = createAsyncThunk("cart/fetchCart", async () => {
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    addToCartAction(state, action: PayloadAction<string>) {
+      let exists = false;
+       state.data.map(d => {
+          if ( d.id === action.payload) {
+            exists = true;
+            d.number++
+          }
+       });
+        if (!exists) {
+          state.data.push({id: action.payload, number: 1});
+        }
+    },
+    removeFromCartAction(state, action: PayloadAction<string>) {
+      debugger;
+      state.data.map( (d, i) => {
+        if ( d.id === action.payload) {
+          if(d.number > 1) d.number--;
+          else state.data.splice(i, 1);
+        }
+      });
+    }
+  },
   extraReducers: (builder) => {
 
     builder.addCase(fetchCartAsynch.fulfilled, (state, action) => {
@@ -38,5 +60,6 @@ const cartSlice = createSlice({
   }
 });
 
-export const data = (state: RootState) => state.cart;
+export const cart = (state: RootState) => state.cart;
+export const { addToCartAction, removeFromCartAction } = cartSlice.actions;
 export default cartSlice.reducer
