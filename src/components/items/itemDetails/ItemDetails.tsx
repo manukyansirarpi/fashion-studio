@@ -18,7 +18,7 @@ const ItemDetails : React.FC<ItemI> = (props) => {
   }
 
   return (
-      <div>
+      <li>
         <img src={img}/>
         <div className={classes.info}>
           <div>
@@ -28,9 +28,8 @@ const ItemDetails : React.FC<ItemI> = (props) => {
           <div className={classes.price}>${price}</div>
         </div>
         <button className={classes.addToCartBtn} onClick={addToCart} data-id={id}>Add to cart</button>
-      </div>
+      </li>
   );
-
 }
 
 export default ItemDetails;

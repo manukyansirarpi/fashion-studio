@@ -25,8 +25,6 @@ const ItemsList : React.FC<IItemsListProps> = (props) => {
             {itemsData.map(item => <ItemDetails {...item} key={item.id}></ItemDetails>)}
           </ul>
       </section>
-      <ul>
-      </ul>
     </main>
   );
 
